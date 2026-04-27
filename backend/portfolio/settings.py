@@ -12,7 +12,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = os.environ.get("SECRET_KEY", "django-insecure-dev-key")
 DEBUG = os.environ.get("DEBUG", "True") == "True"
-ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS", "*").split(",")
+ALLOWED_HOSTS = ["*"]
 
 # Application definition
 
@@ -115,7 +115,7 @@ CHANNEL_LAYERS = {
     },
 }
 
-if not os.environ.get("REDIS_URL") and DEBUG:
+if not os.environ.get("REDIS_URL"):
     CHANNEL_LAYERS["default"] = {
         "BACKEND": "channels.layers.InMemoryChannelLayer"
     }
