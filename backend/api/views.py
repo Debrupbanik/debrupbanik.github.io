@@ -78,9 +78,31 @@ class ExperienceListView(generics.ListAPIView):
         cache.set(cache_key, res.data, timeout=3600)
         return res
 
+from django.core.mail import send_mail
+from django.conf import settings
+import logging
+
+logger = logging.getLogger(__name__)
+
 class MessageCreateView(generics.CreateAPIView):
     queryset = Message.objects.all()
     serializer_class = MessageSerializer
+
+    def perform_create(self, serializer):
+        message = serializer.save()
+        
+        # Attempt to forward the message to the personal email
+        try:
+            if settings.EMAIL_HOST_USER and settings.EMAIL_HOST_PASSWORD:
+                send_mail(
+                    subject=f"[Portfolio] New Message: {message.subject}",
+                    message=f"From: {message.sender_email}\n\n{message.body}",
+                    from_email=settings.EMAIL_HOST_USER,
+                    recipient_list=["debrupbanik82@gmail.com"],
+                    fail_silently=False,
+                )
+        except Exception as e:
+            logger.error(f"Failed to send email notification: {str(e)}")
 
 class MessageStatusView(generics.RetrieveAPIView):
     queryset = Message.objects.all()
