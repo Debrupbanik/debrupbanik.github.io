@@ -1,12 +1,13 @@
 import requests
-from celery import shared_task
 from .models import Project, Tag, Experience
 from django.utils import timezone
+import logging
 
-@shared_task
+logger = logging.getLogger(__name__)
+
 def sync_github_projects():
     """
-    Syncs projects from GitHub API every hour.
+    Syncs projects from GitHub API synchronously.
     """
     username = "Debrupbanik"
     url = f"https://api.github.com/users/{username}/repos?sort=updated&per_page=100"
