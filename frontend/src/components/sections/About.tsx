@@ -12,7 +12,10 @@ export default function About() {
       viewport={{ once: true }}
       className="py-24 border-t border-border"
     >
-      <h2 className="font-mono text-sm text-muted mb-8">~/about</h2>
+      <h2 className="font-mono text-xl mb-8 flex gap-2">
+        <span className="term-purple">~</span>
+        <span className="term-yellow">/about</span>
+      </h2>
       <div className="grid md:grid-cols-2 gap-8 font-mono text-sm">
         <div className="flex flex-col gap-3 text-muted">
           <p>
@@ -32,22 +35,22 @@ export default function About() {
           <div className="text-green mb-2">$ neofetch</div>
           <div className="text-muted space-y-1">
             <div>
-              <span className="text-text">name</span>: Debrup Banik
+              <span className="term-blue">name</span>: Debrup Banik
             </div>
             <div>
-              <span className="text-text">dob</span>: {contact.dob}
+              <span className="term-blue">dob</span>: {contact.dob}
             </div>
             <div>
-              <span className="text-text">education</span>: {education.degree}
+              <span className="term-blue">education</span>: {education.degree}
             </div>
             <div>
-              <span className="text-text">school</span>: UEM Jaipur
+              <span className="term-blue">school</span>: UEM Jaipur
             </div>
             <div>
-              <span className="text-text">period</span>: {education.period}
+              <span className="term-blue">period</span>: {education.period}
             </div>
             <div>
-              <span className="text-text">status</span>:{" "}
+              <span className="term-blue">status</span>:{" "}
               <span className="text-green">
                 open to work <span className="animate-blink">●</span>
               </span>

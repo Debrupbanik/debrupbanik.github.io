@@ -1,9 +1,6 @@
 import type { Metadata } from "next";
 import { JetBrains_Mono } from "next/font/google";
 import "./globals.css";
-import Navbar from "@/components/nav/Navbar";
-import LiveVisitorCount from "@/components/ui/LiveVisitorCount";
-import TerminalWrapper from "@/components/ui/TerminalWrapper";
 
 export const metadata: Metadata = {
   title: "Debrup Banik | ML Engineer",
@@ -24,10 +21,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${jetbrains.variable} h-full antialiased`}>
       <body className="min-h-full flex flex-col bg-bg text-text font-mono">
-        <Navbar />
-        <LiveVisitorCount />
         {children}
-        <TerminalWrapper />
       </body>
     </html>
   );

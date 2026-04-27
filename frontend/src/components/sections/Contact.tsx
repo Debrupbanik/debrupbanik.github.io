@@ -1,70 +1,54 @@
 "use client";
 
-import { useState } from "react";
-import { motion } from "framer-motion";
+import { motion, useInView } from "framer-motion";
+import { useRef } from "react";
 import { contact } from "@/lib/data";
 
+const lines = [
+  { cmd: "./reach --github", out: "github.com/Debrupbanik" },
+  { cmd: "./reach --email", out: contact.email },
+  { cmd: "./reach --phone", out: contact.phone },
+  { cmd: "./reach --location", out: `${contact.location} · open to remote` },
+  { cmd: "./reach --linkedin", out: contact.linkedin },
+];
+
+const container = {
+  hidden: {},
+  show: { transition: { staggerChildren: 0.4 } },
+};
+
+const item = {
+  hidden: { opacity: 0 },
+  show: { opacity: 1, transition: { duration: 0.1 } },
+};
+
 export default function Contact() {
-  const [lines] = useState<string[]>([
-    `$ ./reach --email`,
-    `→ ${contact.email}`,
-    "",
-    `$ ./reach --phone`,
-    `→ ${contact.phone}`,
-    "",
-    `$ ./reach --location`,
-    `→ ${contact.location}`,
-    "",
-    `$ ./reach --linkedin`,
-    `→ ${contact.linkedin}`,
-    "",
-    `$ ./reach --github`,
-    `→ ${contact.github}`,
-    "",
-    `$ echo 'open to opportunities'`,
-    `open to opportunities`,
-  ]);
-  const [visibleLines, setVisibleLines] = useState(0);
+  const ref = useRef(null);
+  const inView = useInView(ref, { once: true, margin: "-80px" });
 
   return (
-    <motion.section
-      id="contact"
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      className="py-24 border-t border-border"
-      onViewportEnter={() => {
-        const timer = setInterval(() => {
-          setVisibleLines((prev) => {
-            if (prev >= lines.length - 1) {
-              clearInterval(timer);
-              return prev;
-            }
-            return prev + 1;
-          });
-        }, 150);
-        return () => clearInterval(timer);
-      }}
-    >
+    <section id="contact" className="py-24 border-t border-border" ref={ref}>
       <h2 className="font-mono text-sm text-muted mb-8">~/contact</h2>
       <div className="bg-bg-2 border border-border p-4 font-mono text-xs">
         <div className="text-green mb-3">$ terminal --contact</div>
-        <div className="text-muted space-y-1">
-          {lines.slice(0, visibleLines).map((line, i) => (
-            <motion.div
-              key={i}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: i * 0.05 }}
-            >
-              {line}
+        <motion.div
+          variants={container}
+          initial="hidden"
+          animate={inView ? "show" : "hidden"}
+          className="space-y-3"
+        >
+          {lines.map((l, i) => (
+            <motion.div key={i} variants={item}>
+              <div className="text-muted">$ {l.cmd}</div>
+              <div className="text-text ml-4">→ {l.out}</div>
             </motion.div>
           ))}
-          {visibleLines < lines.length && (
-            <span className="animate-blink text-text">█</span>
-          )}
-        </div>
+          <motion.div variants={item}>
+            <div className="text-muted">$ echo &apos;open to opportunities&apos;</div>
+            <div className="text-green ml-4">open to opportunities</div>
+          </motion.div>
+        </motion.div>
       </div>
-    </motion.section>
+    </section>
   );
 }

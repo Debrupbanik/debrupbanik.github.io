@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        @page {
+            margin: 2cm;
+            size: A4;
+        }
+        body {
+            font-family: 'Courier New', Courier, monospace;
+            color: #333;
+            line-height: 1.4;
+            font-size: 11pt;
+        }
+        .header {
+            text-align: center;
+            border-bottom: 2pt solid #000;
+            padding-bottom: 10pt;
+            margin-bottom: 20pt;
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 24pt;
+            text-transform: uppercase;
+        }
+        .section-title {
+            font-weight: bold;
+            text-transform: uppercase;
+            border-bottom: 1pt solid #ccc;
+            margin-top: 20pt;
+            margin-bottom: 10pt;
+        }
+        .item {
+            margin-bottom: 10pt;
+        }
+        .item-header {
+            display: flex;
+            justify-content: space-between;
+            font-weight: bold;
+        }
+        .item-meta {
+            font-style: italic;
+            color: #666;
+            font-size: 9pt;
+        }
+        .skill-group {
+            margin-bottom: 5pt;
+        }
+    </style>
+</head>
+<body>
+    <div className="header">
+        <h1>{{ name }}</h1>
+        <p>{{ title }} | {{ contact.email }} | {{ contact.location }}</p>
+    </div>
+
+    <div className="section-title">Experience</div>
+    {% for exp in experience %}
+    <div className="item">
+        <div className="item-header">
+            <span>{{ exp.message }}</span>
+            <span>{{ exp.date }}</span>
+        </div>
+        <div className="item-meta">{{ exp.org }} | commit: {{ exp.hash }}</div>
+        <p>{{ exp.description }}</p>
+    </div>
+    {% endfor %}
+
+    <div className="section-title">Projects</div>
+    {% for project in projects %}
+    <div className="item">
+        <div className="item-header">
+            <span>{{ project.name }}</span>
+            <span>[{{ project.status }}]</span>
+        </div>
+        <p>{{ project.description }}</p>
+        <div className="item-meta">Source: {{ project.github_url }}</div>
+    </div>
+    {% endfor %}
+
+    <div className="section-title">Tech Stack</div>
+    {% for skill in skills %}
+    <div className="skill-group">
+        <strong>{{ skill.name }}</strong>: {{ skill.proficiency }}%
+    </div>
+    {% endfor %}
+</body>
+</html>

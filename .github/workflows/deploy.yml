@@ -1,0 +1,62 @@
+name: CI/CD Deployment
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  backend-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install dependencies
+        run: |
+          cd backend
+          pip install -r requirements.txt
+      - name: Run Tests
+        run: |
+          cd backend
+          python manage.py test
+
+  frontend-build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: frontend/package-lock.json
+      - name: Install dependencies
+        run: |
+          cd frontend
+          npm ci
+      - name: Build Next.js
+        run: |
+          cd frontend
+          npm run build
+        env:
+          NEXT_PUBLIC_API_URL: ${{ secrets.NEXT_PUBLIC_API_URL }}
+
+  deploy:
+    needs: [backend-test, frontend-build]
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      
+      # Railway Deployment is usually handled via Railway's GitHub App
+      # Vercel Deployment is usually handled via Vercel's GitHub App
+      - name: Deployment Instructions
+        run: |
+          echo "Deployment triggered."
+          echo "1. Connect Railway to the backend/ folder."
+          echo "2. Connect Vercel to the frontend/ folder."
