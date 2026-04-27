@@ -32,7 +32,8 @@ def seed_data(apps, schema_editor):
         {"name": "Bengali", "category": "languages", "proficiency": 88, "order": 3},
     ]
     for sk in skills:
-        Skill.objects.get_or_create(name=sk['name'], defaults=sk)
+        lookup_name = sk.pop('name')
+        Skill.objects.get_or_create(name=lookup_name, defaults=sk)
 
     # Seed Projects
     projects = [
@@ -93,7 +94,8 @@ def seed_data(apps, schema_editor):
     ]
     for p in projects:
         tags = p.pop('tags')
-        project, created = Project.objects.get_or_create(slug=p['slug'], defaults=p)
+        lookup_slug = p.pop('slug')
+        project, created = Project.objects.get_or_create(slug=lookup_slug, defaults=p)
         if created:
             for t in tags:
                 tag, _ = Tag.objects.get_or_create(name=t)
@@ -117,7 +119,8 @@ def seed_data(apps, schema_editor):
         }
     ]
     for ex in experiences:
-        Experience.objects.get_or_create(hash=ex['hash'], defaults=ex)
+        lookup_hash = ex.pop('hash')
+        Experience.objects.get_or_create(hash=lookup_hash, defaults=ex)
 
 def reverse_seed(apps, schema_editor):
     Project = apps.get_model('api', 'Project')
