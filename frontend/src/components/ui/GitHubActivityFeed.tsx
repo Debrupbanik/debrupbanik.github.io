@@ -74,16 +74,18 @@ export default function GitHubActivityFeed() {
       
       {/* Visual Contribution Graph */}
       <div className="mb-8 overflow-x-auto pb-4 custom-scrollbar">
-        <GitHubCalendar 
-          username="Debrupbanik" 
-          colorScheme="dark"
-          theme={{
-            dark: ['#111111', '#0f291e', '#16422e', '#1f6443', '#4ade80']
-          }}
-          fontSize={10}
-          blockSize={10}
-          blockMargin={4}
-        />
+        {events.length > 0 && (
+          <GitHubCalendar 
+            username="Debrupbanik" 
+            colorScheme="dark"
+            theme={{
+              dark: ['#111111', '#0f291e', '#16422e', '#1f6443', '#4ade80']
+            }}
+            fontSize={10}
+            blockSize={10}
+            blockMargin={4}
+          />
+        )}
       </div>
 
       {/* Live Activity Log */}
