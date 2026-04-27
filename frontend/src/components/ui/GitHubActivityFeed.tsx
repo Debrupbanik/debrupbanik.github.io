@@ -9,7 +9,7 @@ interface GitHubEvent {
   time: string;
 }
 
-import GitHubCalendar from "react-github-calendar";
+import { GitHubCalendar } from "react-github-calendar";
 
 export default function GitHubActivityFeed() {
   const [events, setEvents] = useState<GitHubEvent[]>([]);
