@@ -40,4 +40,5 @@ EXPOSE 8080
 
 # Run the application
 # We use daphne because we are using Django Channels
-CMD ["daphne", "-b", "0.0.0.0", "-p", "8080", "portfolio.asgi:application"]
+# We also ensure database migrations are run on every startup
+CMD ["sh", "-c", "python manage.py migrate && daphne -b 0.0.0.0 -p 8080 portfolio.asgi:application"]
