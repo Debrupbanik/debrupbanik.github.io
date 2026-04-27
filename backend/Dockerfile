@@ -1,16 +1,14 @@
-# Use an official Python runtime as a parent image
-FROM python:3.12-slim
+# Use a full Bookworm image for better stability and pre-installed libs
+FROM python:3.12-bookworm
 
 # Set environment variables
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
 ENV PORT 8080
 
-# Install system dependencies
+# Install remaining mandatory dependencies
 RUN apt-get update && apt-get install -y \
-    build-essential \
     libpq-dev \
-    curl \
     libgobject-2.0-0 \
     libpango-1.0-0 \
     libharfbuzz0b \
