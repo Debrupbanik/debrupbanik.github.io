@@ -35,18 +35,20 @@ export default function ResumePage() {
             </div>
             <div className="text-right space-y-1 text-sm md:text-base opacity-80">
               <p className="flex items-center justify-end gap-2">
-                <span className="term-blue">email:</span> debrupbanik82@gmail.com
+                <span className="term-blue">email:</span> 
+                <a href="mailto:debrupbanik82@gmail.com" className="hover:text-green transition-colors underline decoration-green/30 underline-offset-4">debrupbanik82@gmail.com</a>
               </p>
               <p className="flex items-center justify-end gap-2">
-                <span className="term-blue">phone:</span> +91 6376935840
+                <span className="term-blue">phone:</span> 
+                <a href="tel:+916376935840" className="hover:text-green transition-colors underline decoration-green/30 underline-offset-4">+91 6376935840</a>
               </p>
               <p className="flex items-center justify-end gap-2">
                 <span className="term-blue">location:</span> Jaipur, India
               </p>
               <div className="flex gap-4 justify-end mt-4">
                 <a href="/resume.pdf" download className="text-green border border-green/30 px-3 py-1 hover:bg-green/10 transition-all text-xs">[DOWNLOAD RESUME]</a>
-                <a href="https://linkedin.com/in/debrup-banik-799862241" target="_blank" className="text-muted hover:text-green text-xs">[LinkedIn]</a>
-                <a href="https://github.com/Debrupbanik" target="_blank" className="text-muted hover:text-green text-xs">[GitHub]</a>
+                <a href="https://linkedin.com/in/debrup-banik-799862241" target="_blank" rel="noopener noreferrer" className="text-muted hover:text-green text-xs transition-colors">[LinkedIn]</a>
+                <a href="https://github.com/Debrupbanik" target="_blank" rel="noopener noreferrer" className="text-muted hover:text-green text-xs transition-colors">[GitHub]</a>
               </div>
             </div>
           </div>

@@ -82,8 +82,10 @@ export default function Terminal({
 
     whoami: () => [
       "Debrup Banik",
-      "ML Engineer @ India",
+      "ML Engineer @ Jaipur, India",
       "Specializing in predictive analytics and LSTM models.",
+      "LinkedIn: https://linkedin.com/in/debrup-banik-799862241",
+      "GitHub: https://github.com/Debrupbanik",
     ],
 
     "sudo hire debrup": () => {
@@ -223,7 +225,22 @@ export default function Terminal({
 
                     return (
                       <div key={j} className={`${className} whitespace-pre-wrap leading-relaxed`}>
-                        {line}
+                        {line.split(/(https?:\/\/[^\s]+)/g).map((part, k) => {
+                          if (part.match(/https?:\/\/[^\s]+/)) {
+                            return (
+                              <a
+                                key={k}
+                                href={part}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="underline decoration-green/30 hover:text-green transition-all"
+                              >
+                                {part}
+                              </a>
+                            );
+                          }
+                          return part;
+                        })}
                       </div>
                     );
                   })}
