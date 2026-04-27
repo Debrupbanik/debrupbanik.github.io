@@ -2,10 +2,11 @@
 
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { getEducation, getCertifications, Education, Certification } from "@/lib/api";
+import { getEducation, getCertifications } from "@/lib/api";
+import type { Education as EduType, Certification } from "@/lib/api";
 
 export default function Education() {
-  const [education, setEducation] = useState<Education | null>(null);
+  const [education, setEducation] = useState<EduType | null>(null);
   const [certifications, setCertifications] = useState<Certification[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -31,7 +32,10 @@ export default function Education() {
         viewport={{ once: true }}
         className="py-24 border-t border-border"
       >
-        <h2 className="font-mono text-sm text-muted mb-8">~/education</h2>
+        <h2 className="font-mono text-xl mb-8 flex gap-2">
+          <span className="term-purple">~</span>
+          <span className="term-yellow">/education</span>
+        </h2>
         <div className="font-mono text-xs text-muted">$ loading...</div>
       </motion.section>
     );
@@ -50,16 +54,19 @@ export default function Education() {
         {education && (
           <div className="font-mono text-xs space-y-6">
             <div>
-              <div className="text-green mb-1">$ cat education.txt</div>
+              <div className="font-mono text-sm mb-2">
+                <span className="text-green opacity-70">$</span>{" "}
+                <span className="term-green">cat education.txt</span>
+              </div>
               <div className="bg-bg-2 border border-border p-4 space-y-2">
                 <div>
-                  <span className="text-text">degree</span>: {education.degree}
+                  <span className="term-blue">degree</span>: {education.degree}
                 </div>
                 <div>
-                  <span className="text-text">school</span>: {education.school}
+                  <span className="term-blue">school</span>: {education.school}
                 </div>
                 <div>
-                  <span className="text-text">period</span>: {education.period}
+                  <span className="term-blue">period</span>: {education.period}
                 </div>
                 <div className="border-t border-border mt-3 pt-3 text-muted">
                   <div>
@@ -83,9 +90,15 @@ export default function Education() {
           viewport={{ once: true }}
           className="py-24 border-t border-border"
         >
-          <h2 className="font-mono text-sm text-muted mb-8">~/certifications</h2>
+          <h2 className="font-mono text-xl mb-8 flex gap-2">
+            <span className="term-purple">~</span>
+            <span className="term-yellow">/certifications</span>
+          </h2>
           <div className="font-mono text-xs">
-            <div className="text-green mb-3">$ ls certifications/</div>
+            <div className="font-mono text-sm mb-4">
+              <span className="text-green opacity-70">$</span>{" "}
+              <span className="term-green">ls certifications/</span>
+            </div>
             <div className="space-y-2">
               {certifications.map((cert, i) => (
                 <div key={i} className="bg-bg-2 border border-border p-3">
