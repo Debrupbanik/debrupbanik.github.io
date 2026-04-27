@@ -24,7 +24,8 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY . /app/
 
 # Collect static files
-RUN python manage.py collectstatic --noinput
+# We set a dummy SECRET_KEY for build time so collectstatic doesn't fail
+RUN SECRET_KEY=build-key ALLOWED_HOSTS=localhost python manage.py collectstatic --noinput
 
 # Expose the port
 EXPOSE 8080
