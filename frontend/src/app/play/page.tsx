@@ -74,7 +74,7 @@ export default function DjangoShell() {
           </div>
 
           <div className="flex items-center gap-2 border-t border-border/50 pt-4">
-            <span className="text-green">>>></span>
+            <span className="text-green">&gt;&gt;&gt;</span>
             <input
               ref={inputRef}
               type="text"
