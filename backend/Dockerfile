@@ -6,10 +6,13 @@ ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
 ENV PORT 8080
 
-# Install remaining mandatory dependencies
+# Install remaining mandatory dependencies (Official WeasyPrint stack)
 RUN apt-get update && apt-get install -y \
-    libpq-dev \
-    libgobject-2.0-0 \
+    python3-pip \
+    python3-setuptools \
+    python3-wheel \
+    python3-cffi \
+    libcairo2 \
     libpango-1.0-0 \
     libpangocairo-1.0-0 \
     libgdk-pixbuf2.0-0 \
